@@ -9,7 +9,7 @@ import {
 const router = express.Router()
 
 router.get('/sign-up', (req, res) => {
-  res.render('authentication/sign-up', {error:null})
+  res.render('authentication/sign-up', {error: null})
 })
 router.post('/sign-up', (req, res) => {
   const {name, password} = req.body
@@ -23,7 +23,12 @@ router.post('/sign-up', (req, res) => {
           res.render('authentication/sign-up', {error: 'That email is in use.'})
         } else {
           signUp(name, email, password)
-            .then(() => res.redirect('/'))
+            .then((result) => {
+              const user = result[0]
+              console.log(user);
+              req.setCookie(user.id)
+              res.redirect('/')
+            })
         }
       })
   }
@@ -35,11 +40,15 @@ router.get('/sign-in', (req, res) => {
 router.post('/sign-in', (req, res) => {
   const {email, password} = req.body
   signIn(email, password)
-    .then((valid) => {
-      if (valid) {
-        res.redirect('/')
-      } else {
+    .then((decision) => {
+      const {error, user} = decision
+      if (error) {
         res.render('authentication/sign-in', {error: 'Incorrect username or password'})
+      } else {
+        req.user = user
+        console.log(user.id);
+        req.setCookie(user.id)
+          .then(() => res.redirect('/'))
       }
     })
 })

@@ -1,5 +1,19 @@
+DROP TABLE IF EXISTS usersAlbumLikes CASCADE;
+DROP TABLE IF EXISTS albums;
+DROP TABLE IF EXISTS users;
+
 CREATE TABLE albums (
-  id SERIAL,
+  id SERIAL PRIMARY KEY,
   title VARCHAR(255) NOT NULL,
   artist VARCHAR(255) NOT NULL
+);
+CREATE TABLE users (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  email VARCHAR(255) NOT NULL,
+  password VARCHAR(255) NOT NULL
+);
+CREATE TABLE usersAlbumLikes (
+  user_id INTEGER REFERENCES users(id),
+  album_id INTEGER REFERENCES albums(id)
 );

@@ -1,5 +1,15 @@
 <% include ../partials/header %>
 
-<!-- insert code here -->
+<div class="center">
+  <% if (user && edit) { %>
+    <div id="profileName" class="editable" contenteditable><%= user.name %></div><br>
+    <div id="profileEmail" class="editable" contenteditable><%= user.email %></div><br>
+    <button onclick="submitProfileChanges()">Save</button>
+  <% } else if (user) { %>
+    <div id="profileName" ><%= user.name %></div><br>
+    <div id="profileEmail"><%= user.email %></div><br>
+    <button onclick="(() => {window.location.href += '/edit'})()">Edit</button>
+  <% }  %>
+</div>
 
 <% include ../partials/footer %>

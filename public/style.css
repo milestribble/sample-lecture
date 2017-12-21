@@ -8,6 +8,10 @@ body {
   display: flex;
   justify-content: space-around;
 }
+
+.editable {
+  border-bottom: 1px solid black;
+}
 .center {
   height: 200px;
   margin-top: calc(50vh - 100px);
@@ -15,4 +19,14 @@ body {
 .error {
   color:red;
   weight: bold;
+}
+.likebutton {
+  border: 1px solid black;
+  border-radius: 5px;
+}
+.liked {
+  border: 1px solid red;
+}
+#likeCount {
+  display: inline;
 }

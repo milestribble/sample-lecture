@@ -1,6 +1,13 @@
 <% include ../partials/header %>
 
-<h1><%= album.title %></h1>
-<em>by <%= album.artist %></em>
+<div class="center">
+  <h1><%= album.title %></h1>
+  <span>by <%= album.artist %></span><br><br>
+  <% if (user) { %>
+    <button onclick='like()' class='likebutton <%if (likes.userLiked) {%>liked<% }%>'>Like</button> &nbsp;<div id='likeCount'><%= likes.totalLikes %></div>
+  <% } else { %>
+    Like: &nbsp; <%= likes.totalLikes %>
+  <% } %>
+</div>
 
 <% include ../partials/footer %>
